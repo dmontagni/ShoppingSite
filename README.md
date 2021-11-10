@@ -14,3 +14,12 @@ con seguenti funzionalità.
 -- pagina profilo utente.   
 -- pagina riepilogo ordini.   
 
+team 1: Mirko Lorenzo.
+- login e carrello.  
+
+team 2: Andrea e Gianpiero.    
+- homepage e profilo.  
+  
+team 3: Mohamed, Marco e Luca.    
+- registrazione e pagina ordini
+
