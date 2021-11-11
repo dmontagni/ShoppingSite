@@ -12,7 +12,7 @@ import java.util.List;
 
 
 @org.springframework.stereotype.Controller
-public class Controller {
+public class SimpleController {
     public static List<User> usersList = new ArrayList<User>();
 @GetMapping("/")
     public static String showHome(Model model){
@@ -44,14 +44,31 @@ public class Controller {
         model.addAttribute("user",user);
         if(getUtente(usersList,user)!= null){
             model.addAttribute("user", user);
-            return "result";
+            return "homepage";
         } else{
             return "saveError";
         }
     }
 
+    @GetMapping("/profilo")
+    public String profilo(Model model){
+        User user = new User("nome1","cognome1","https://robohash.org/12545.png?size=100x100","Via");
+        model.addAttribute("user", user);
+        return "profilo";
+    }
 
+    @PostMapping("/profilo")
+    public String profiloAggiornato(@ModelAttribute User user, Model model){
+        //qui va inserita la modifica dell'user
+        usersList.add(user);
+        model.addAttribute("user", user);
+        return "homepage";
+    }
 
+    @GetMapping("/homepage")
+    public String homepage(Model model){
+        return "homepage";
+    }
 // Metodo per analizzare la lista e cerca user se corrisponde con user all' interno della lista
     public  User getUtente (List<User> usersList , User user){
         for (User utente: usersList) {
