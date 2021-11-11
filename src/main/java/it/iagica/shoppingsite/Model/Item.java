@@ -6,11 +6,28 @@ public class Item {
     private String name;
     private String description;
     private Double price;
-
+  
+    
+    
     public Item() {
     }
+    
+    
 
-    public Integer getIdItem() {
+    public Item(Integer idItem, String code, String name, String description, Double price  ) {
+		super();
+		this.idItem = idItem;
+		this.code = code;
+		this.name = name;
+		this.description = description;
+		this.price =  price;
+		
+	
+	}
+
+
+
+	public Integer getIdItem() {
         return idItem;
     }
 
@@ -60,4 +77,5 @@ public class Item {
                 ", price=" + price +
                 '}';
     }
+    	
 }

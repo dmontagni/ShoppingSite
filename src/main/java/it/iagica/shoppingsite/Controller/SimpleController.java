@@ -52,7 +52,7 @@ public class SimpleController {
         model.addAttribute("ordinis",ordinis());
         if(getUtente(usersList,user)!= null){
             model.addAttribute("user", user);
-            return "result";
+            return "profilo";
         } else{
             return "saveError";
         }
