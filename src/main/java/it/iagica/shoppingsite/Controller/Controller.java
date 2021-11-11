@@ -1,7 +1,7 @@
 package it.iagica.shoppingsite.Controller;
 
 import it.iagica.shoppingsite.Model.User;
-import org.springframework.stereotype.Controller;
+
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -44,7 +44,7 @@ public class Controller {
         model.addAttribute("user",user);
         if(getUtente(usersList,user)!= null){
             model.addAttribute("user", user);
-            return "result";
+            return "profilo";
         } else{
             return "saveError";
         }

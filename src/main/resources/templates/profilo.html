@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>PROFILO</title>
+</head>
+<body>
+<p th:text="'BENVENUTO ' + ${user.username} " />
+
+<form action="#" th:action="@{/cart}" th:object="${item}" method="get">
+<p><input type="submit" value="Carrello"></p>
+</body>
+</html>
