@@ -7,12 +7,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
-@Controller
-public class SimpleController {
-    List<User> usersList;
+@org.springframework.stereotype.Controller
+public class Controller {
+    public static List<User> usersList = new ArrayList<User>();
 @GetMapping("/")
     public static String showHome(Model model){
     model.addAttribute("user", new User());
@@ -27,10 +28,10 @@ public class SimpleController {
 
 @PostMapping("/register")
     public String salvaUser(@ModelAttribute User user , Model model){
-    model.addAttribute("user",user);
-    if(usersList.add(user)){
+    usersList.add(user);
+    if(user != null){
         model.addAttribute("user", user);
-        return "index";
+        return "login";
     } else{
         return "saveError";
     }
@@ -43,7 +44,6 @@ public class SimpleController {
         model.addAttribute("user",user);
         if(getUtente(usersList,user)!= null){
             model.addAttribute("user", user);
-
             return "result";
         } else{
             return "saveError";
@@ -54,12 +54,10 @@ public class SimpleController {
 
 // Metodo per analizzare la lista e cerca user se corrisponde con user all' interno della lista
     public  User getUtente (List<User> usersList , User user){
-        for (User utente: usersList
-             ) {
+        for (User utente: usersList) {
             if (utente.getUsername().equals(user.getUsername()) && utente.getPassword().equals(user.getPassword())){
                 return utente;
             }
-
         }
         return null;
     }
