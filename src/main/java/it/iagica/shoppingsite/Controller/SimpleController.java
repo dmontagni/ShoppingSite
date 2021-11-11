@@ -1,5 +1,6 @@
 package it.iagica.shoppingsite.Controller;
 
+import it.iagica.shoppingsite.Model.Ordini;
 import it.iagica.shoppingsite.Model.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,7 +8,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.xml.crypto.Data;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -40,8 +46,10 @@ public class SimpleController {
 }
 //provvisiorio
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user , Model model){
+    public String loginUser(@ModelAttribute User user , Model model , Ordini ordini){
         model.addAttribute("user",user);
+        model.addAttribute("ordini",ordini);
+        model.addAttribute("ordinis",ordinis());
         if(getUtente(usersList,user)!= null){
             model.addAttribute("user", user);
             return "homepage";
@@ -78,8 +86,21 @@ public class SimpleController {
         }
         return null;
     }
+public List<Ordini> ordinis (){
+    Date date = new Date(System.currentTimeMillis());
+    Ordini ordine1 = new Ordini("cod_1",date,22d);
+    Ordini ordine2 = new Ordini("cod_2", date ,21d);
+    Ordini ordine3 = new Ordini("cod_3",date,23d);
+    return Arrays.asList(ordine1,ordine2 ,ordine3 );
+}
 
-
+    @GetMapping("/order")
+    public String showOrder(Model model){
+        Ordini ordini  = new Ordini();
+        model.addAttribute("ordini", ordini);
+        model.addAttribute("ordinis" , ordinis());
+        return "order";
+    }
 
 
 }
