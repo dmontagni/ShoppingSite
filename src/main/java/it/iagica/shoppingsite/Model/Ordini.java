@@ -14,6 +14,12 @@ public class Ordini {
     public Ordini() {
     }
 
+    public Ordini(String code, Date orderDate, Double totalPrice) {
+        this.code = code;
+        this.orderDate = orderDate;
+        this.totalPrice = totalPrice;
+    }
+
     public Integer getIdOrdini() {
         return idOrdini;
     }

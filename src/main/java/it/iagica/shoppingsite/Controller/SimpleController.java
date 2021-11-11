@@ -58,14 +58,14 @@ public class SimpleController {
         }
     }
 
-    @GetMapping("/profilo")
+    @GetMapping("/profiloPage")
     public String profilo(Model model){
         User user = new User("nome1","cognome1","https://robohash.org/12545.png?size=100x100","Via");
         model.addAttribute("user", user);
-        return "profilo";
+        return "profiloPage";
     }
 
-    @PostMapping("/profilo")
+    @PostMapping("/profiloPage")
     public String profiloAggiornato(@ModelAttribute User user, Model model){
         //qui va inserita la modifica dell'user
         usersList.add(user);
