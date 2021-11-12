@@ -76,6 +76,7 @@ public class ShoppingSiteController {
     //ritorna alla home dalla pagina profilo con aggiornamento dati dell'utente
     @PostMapping("/profiloPage")
     public String profiloAggiornato(@ModelAttribute User user, Model model) {
+        System.out.println(user);
         userLogged = user;
         model.addAttribute("user", user);
         return "home";

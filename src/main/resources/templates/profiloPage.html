@@ -6,17 +6,20 @@
 </head>
 <body>
 <h1>Profilo personale</h1>
-<p><img th:src='${user.photo}' size/></p>
 <form action="#" th:action="@{/profiloPage}" th:object="${user}" method="post">
     <p>
-        <img src="#" id="getImage" onclick="changeImage()">
+        <img src="#" id="getImage" th:src="*{photo}" onclick="changeImage()">
         <--- Click me!
         <script>
         function changeImage() {
+            var image = "https://robohash.org/" + Math.floor((Math.random() * 100) + 1) + ".png?size=100x100";
             var Image_Id = document.getElementById('getImage');
-            Image_Id.src = "https://robohash.org/" + Math.floor((Math.random() * 100) + 1) + ".png?size=100x100";
+            Image_Id.src = image;
+            var Image_hidden = document.getElementById('saveImg');
+            Image_hidden.value = image;
         }
         </script>
+        <input type="hidden" id="saveImg" th:field="*{photo}">
     </p>
     <p>username: <input type="text" th:field="*{username}" /></p>
     <p>password: <input type="text" th:field="*{password}" /></p>
