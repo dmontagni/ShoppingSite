@@ -6,12 +6,12 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/save}" th:object="${cart}" method="post">
+<form action="#" th:action="@{/save}" th:object="${entryogg}" method="post">
 <label for="cart">Scegli un oggetto:</label>
-  <select name="cart" id="cart">
+  <select name="cart">
     <optgroup label="Carrello della spesa">
       <option th:each ="cart : ${items}"
-      th:text = "${cart}"/>
+      th:text = "${cart.name}"/>
       
     </optgroup>
   
@@ -32,8 +32,8 @@
 </thead>
 <tbody>
 
-<tr th:each="item : ${insertoggetto}">
-<td><img src="https://icons.iconarchive.com/icons/fi3ur/fruitsalad/64/watermelon-icon.png"> </td>                             <!-- th:src='${item.nome}' size/> -->
+<tr th:each="item : ${item}">
+<td><img th:src='${item.img}' size/></td>                           <!-- th:src='${item.nome}' size/> -->
 <td><span th:text="${item.idItem}"></span></td>
 <td><span th:text="${item.code}"></span></td>
 <td><span th:text="${item.name}"></span></td>

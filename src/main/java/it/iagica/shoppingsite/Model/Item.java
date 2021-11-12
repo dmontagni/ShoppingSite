@@ -6,7 +6,7 @@ public class Item {
     private String name;
     private String description;
     private Double price;
-  
+    private String img;
     
     
     public Item() {
@@ -14,15 +14,27 @@ public class Item {
     
     
 
-    public Item(Integer idItem, String code, String name, String description, Double price  ) {
+    public Item(Integer idItem, String code, String name, String description, Double price ,String img ) {
 		super();
 		this.idItem = idItem;
 		this.code = code;
 		this.name = name;
 		this.description = description;
 		this.price =  price;
-		
+		this.img = img;
 	
+	}
+
+
+
+	public String getImg() {
+		return img;
+	}
+
+
+
+	public void setImg(String img) {
+		this.img = img;
 	}
 
 
