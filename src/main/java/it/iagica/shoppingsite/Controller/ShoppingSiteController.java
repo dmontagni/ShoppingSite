@@ -146,6 +146,7 @@ public class ShoppingSiteController {
 
     @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
+        model.addAttribute("user", userLogged);
         //Order order = new Order();
         idOrderCode++;
         orderCode = "cod" + idOrderCode;
@@ -165,7 +166,7 @@ public class ShoppingSiteController {
             this.orders.add(orders);
             cartProducts = new ArrayList<>();
             model.addAttribute("user", userLogged);
-            return "/home";
+            return "home";
         }
 
 
