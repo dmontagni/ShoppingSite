@@ -20,8 +20,8 @@ public class ShoppingSiteController {
     List<Item> cartProducts = new ArrayList();
     List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
-    int idOrderCode =1;
-    String orderCode = "cod" + (idOrderCode+1);
+    static int idOrderCode = 0;
+    static String orderCode = "cod" + idOrderCode + 1;
     User userLogged;
 
     @GetMapping("/")
@@ -85,7 +85,7 @@ public class ShoppingSiteController {
     //carica la pagina home
     @GetMapping("/home")
     public String homepage(Model model) {
-        model.addAttribute("user",userLogged);
+        model.addAttribute("user", userLogged);
         return "home";
     }
 
@@ -98,7 +98,6 @@ public class ShoppingSiteController {
         }
         return null;
     }
-
 
 
     @GetMapping("/order")
@@ -148,20 +147,28 @@ public class ShoppingSiteController {
     @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
         //Order order = new Order();
+        idOrderCode++;
+        orderCode = "cod" + idOrderCode;
         Double sommatotale = 0d;
         Date date = new Date(System.currentTimeMillis());
-        Orders orders = new Orders();
-        for (Item item: cartProducts) {
-            sommatotale += item.getPrice();
+        System.out.println(cartProducts);
+        if (cartProducts.isEmpty()) {
+            return "saveError";
+        } else {
+            Orders orders = new Orders();
+            for (Item item : cartProducts) {
+                sommatotale += item.getPrice();
+            }
+            orders.setOrderDate(date);
+            orders.setCode(orderCode);
+            orders.setTotalPrice(sommatotale);
+            this.orders.add(orders);
+            cartProducts = new ArrayList<>();
+            model.addAttribute("user", userLogged);
+            return "/home";
         }
-        orders.setOrderDate(date);
-        orders.setCode(orderCode);
-        idOrderCode++;
-        orders.setTotalPrice(sommatotale);
-        this.orders.add(orders);
-        cartProducts = new ArrayList<>();
-        model.addAttribute("user",userLogged);
-        return "/home";
+
+
         //questo metodo deve semplicemente aggiungere il carrello all'ENNESIMO ORDINE (DA CREARE NUOVO) SULLA LISTA ORDINI
         // ricordate che la lista ordini come il catalogo e il carrello saranno GLOBALI a livello di controller
         //ordinis.add(order);
