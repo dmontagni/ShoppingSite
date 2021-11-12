@@ -5,49 +5,39 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-
-<form action="#" th:action="@{/save}" th:object="${entryogg}" method="post">
-<label for="cart">Scegli un oggetto:</label>
-  <select name="cart">
-    <optgroup label="Carrello della spesa">
-      <option th:each ="cart : ${items}"
-      th:text = "${cart.name}"/>
-      
-    </optgroup>
-  
-  </select> <button type="submit">Submit</button>
-  <br><br>
-</form>
-<table border="1">
-<thead>
-<tr>
-<th> photo </th>
-<th> ID </th>
-<th> CODE </th>
-<th> NAME </th>
-<th> DESCRIPTION </th>
-<th> PRICE </th>
-
-</tr>
-</thead>
-<tbody>
-
-<tr th:each="item : ${item}">
-<td><img th:src='${item.img}' size/></td>                           <!-- th:src='${item.nome}' size/> -->
-<td><span th:text="${item.idItem}"></span></td>
-<td><span th:text="${item.code}"></span></td>
-<td><span th:text="${item.name}"></span></td>
-<td><span th:text="${item.description}"></span></td>
-<td><span th:text="${item.price}"></span></td>
-
-
-</tr>
-</tbody>
-</table>
-
-<button onClick="window.location.reload();">Aggiorna Carrello</button>
-
-<p><input type="submit" value="Invia Ordine" /> <input type="reset" value="Reset" /></p>
-
+  <form action="#" th:action="@{/save}" th:object="${item}" method="post">
+    <label for="cart">Scegli un oggetto:</label>
+    <select th:field="*{code}">
+      <optgroup label="Carrello della spesa">
+      <option th:each ="item : ${catalogo}"
+        th:text = "${item.name}"
+        th:value="${item.code}"/>
+      </optgroup>
+    </select> <button type="submit">AGGIUNGI</button>
+    <br><br>
+  </form>
+  <table border="1">
+    <thead>
+      <tr>
+        <th> photo </th>
+        <th> ID </th>
+        <th> CODE </th>
+        <th> NAME </th>
+        <th> DESCRIPTION </th>
+        <th> PRICE </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr th:each="item : ${prodottiCarrello}">
+        <td><img th:src='${item.img}' size/></td>                           <!-- th:src='${item.nome}' size/> -->
+        <td><span th:text="${item.idItem}"></span></td>
+        <td><span th:text="${item.code}"></span></td>
+        <td><span th:text="${item.name}"></span></td>
+        <td><span th:text="${item.description}"></span></td>
+        <td><span th:text="${item.price}"></span></td>
+      </tr>
+    </tbody>
+  </table>
+  <p><input type="submit" value="Invia Ordine" /></p>
 </body>
 </html>
