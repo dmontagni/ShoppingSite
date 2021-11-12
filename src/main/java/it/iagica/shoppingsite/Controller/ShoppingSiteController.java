@@ -40,6 +40,7 @@ public class ShoppingSiteController {
     @PostMapping("/register")
     public String salvaUser(@ModelAttribute User user, Model model) {
         usersList.add(user);
+        System.out.println(user);
         if (user != null) {
             model.addAttribute("user", user);
             return "login";
@@ -65,21 +66,22 @@ public class ShoppingSiteController {
         }
     }
 
+    //accede alla pagina profilo dell'utente mettendo in mostra i dati con l'opzione di modifica
     @GetMapping("/profiloPage")
     public String profilo(Model model) {
-        User user = new User("nome1", "cognome1", "https://robohash.org/12545.png?size=100x100", "Via");
-        model.addAttribute("user", user);
+        model.addAttribute("user", userLogged);
         return "profiloPage";
     }
 
+    //ritorna alla home dalla pagina profilo con aggiornamento dati dell'utente
     @PostMapping("/profiloPage")
     public String profiloAggiornato(@ModelAttribute User user, Model model) {
-        //qui va inserita la modifica dell'user
-        usersList.add(user);
+        userLogged = user;
         model.addAttribute("user", user);
         return "home";
     }
 
+    //carica la pagina home
     @GetMapping("/home")
     public String homepage(Model model) {
         model.addAttribute("user",userLogged);

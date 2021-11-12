@@ -3,7 +3,7 @@ package it.iagica.shoppingsite.Model;
 public class User {
     private String username;
     private String password;
-    private String photo;
+    private String photo = "https://robohash.org/11.png?size=100x100";
     private String address;
     //ricordiamoci sempre il costruttore vuoto necessario a Spring
     public User() {

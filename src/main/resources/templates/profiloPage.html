@@ -5,9 +5,19 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
+<h1>Profilo personale</h1>
 <p><img th:src='${user.photo}' size/></p>
 <form action="#" th:action="@{/profiloPage}" th:object="${user}" method="post">
+    <p>
+        <img src="#" id="getImage" onclick="changeImage()">
+        <--- Click me!
+        <script>
+        function changeImage() {
+            var Image_Id = document.getElementById('getImage');
+            Image_Id.src = "https://robohash.org/" + Math.floor((Math.random() * 100) + 1) + ".png?size=100x100";
+        }
+        </script>
+    </p>
     <p>username: <input type="text" th:field="*{username}" /></p>
     <p>password: <input type="text" th:field="*{password}" /></p>
     <p>indirizzo:  <input type="text" th:field="*{address}" /></p>
