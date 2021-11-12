@@ -3,29 +3,29 @@ package it.iagica.shoppingsite.Model;
 import java.sql.Date;
 import java.util.List;
 
-public class Ordini {
-    private Integer idOrdini;
+public class Orders {
+    private Integer idOrders;
     private String code;
     private Date orderDate;
     private List<Item> items;
     private Date shippingDate;
     private Double totalPrice;
 
-    public Ordini() {
+    public Orders() {
     }
 
-    public Ordini(String code, Date orderDate, Double totalPrice) {
+    public Orders(String code, Date orderDate, Double totalPrice) {
         this.code = code;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
     }
 
-    public Integer getIdOrdini() {
-        return idOrdini;
+    public Integer getIdOrders() {
+        return idOrders;
     }
 
-    public void setIdOrdini(Integer idOrdini) {
-        this.idOrdini = idOrdini;
+    public void setIdOrders(Integer idOrders) {
+        this.idOrders = idOrders;
     }
 
     public String getCode() {
@@ -71,7 +71,7 @@ public class Ordini {
     @Override
     public String toString() {
         return "Ordini{" +
-                "idOrdini=" + idOrdini +
+                "idOrdini=" + idOrders +
                 ", code='" + code + '\'' +
                 ", orderDate=" + orderDate +
                 ", items=" + items +

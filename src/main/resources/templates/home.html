@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 <meta charset="ISO-8859-1">
 <title>PROFILO</title>
@@ -12,9 +12,10 @@
 </form>
 <form action="#" th:action="@{/cart}" th:object="${item}" method="get">
 <p><input type="submit" value="Carrello"></p>
-    <p><a href="order"> <input type="button" value="ordini"/></a></p>
+    <p><a href="order"> <input type="button" value="orders"/></a></p>
 </form>
 <form action="#" th:action="@{/}" method="get">
     <p><input type="submit" value="Exit" /></p>
+</form>
 </body>
 </html>

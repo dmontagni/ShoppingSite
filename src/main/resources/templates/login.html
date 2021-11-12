@@ -5,13 +5,21 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Welcome to your first Spring Webapp: <b></b></h1>
+<h1>Inserisci i tuoi dati di login <b></b></h1>
 
 <form action="#" th:action="@{/login}" th:object="${user}" method="post">
     <p>username: <input type="text" th:field="*{username}" /></p>
     <p>password: <input type="password" th:field="*{password}" /></p>
     <p><input type="submit" value="Submit" /><a href="register"> <input type="button" value="Register"/></a></p>
-   </form>
+
+<!--    <script>-->
+<!--        window.onerror = function(submit) {-->
+<!--        alert("Hello! I am an alert box!!");-->
+<!--        return true;-->
+<!--        }-->
+<!--    </script>-->
+
+</form>
 
 
 </body>

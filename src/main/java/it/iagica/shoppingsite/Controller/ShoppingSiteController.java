@@ -1,18 +1,14 @@
 package it.iagica.shoppingsite.Controller;
 
 import it.iagica.shoppingsite.Model.Item;
-import it.iagica.shoppingsite.Model.Ordini;
+import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import javax.xml.crypto.Data;
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,8 +17,12 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class ShoppingSiteController {
     public static List<User> usersList = new ArrayList<User>();
-    List<Item> prodottiCarrello = new ArrayList();
-    List<Item> catalogo = getItems();
+    List<Item> cartProducts = new ArrayList();
+    List<Item> catalog = getItems();
+    List<Orders> orders = new ArrayList<>();
+    int idOrderCode =1;
+    String orderCode = "cod" + (idOrderCode+1);
+    User userLogged;
 
     @GetMapping("/")
     public static String showHome(Model model) {
@@ -52,12 +52,13 @@ public class ShoppingSiteController {
 
     //provvisiorio
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, Ordini ordini) {
+    public String loginUser(@ModelAttribute User user, Model model, Orders orders) {
         model.addAttribute("user", user);
-        model.addAttribute("ordini", ordini);
-        model.addAttribute("ordinis", ordinis());
+        model.addAttribute("order", orders);
+        model.addAttribute("orderList", this.orders);
         if (getUtente(usersList, user) != null) {
             model.addAttribute("user", user);
+            userLogged = user;
             return "home";
         } else {
             return "saveError";
@@ -76,12 +77,13 @@ public class ShoppingSiteController {
         //qui va inserita la modifica dell'user
         usersList.add(user);
         model.addAttribute("user", user);
-        return "homepage";
+        return "home";
     }
 
-    @GetMapping("/homepage")
+    @GetMapping("/home")
     public String homepage(Model model) {
-        return "homepage";
+        model.addAttribute("user",userLogged);
+        return "home";
     }
 
     // Metodo per analizzare la lista e cerca user se corrisponde con user all' interno della lista
@@ -94,26 +96,20 @@ public class ShoppingSiteController {
         return null;
     }
 
-    public List<Ordini> ordinis() {
-        Date date = new Date(System.currentTimeMillis());
-        Ordini ordine1 = new Ordini("cod_1", date, 22d);
-        Ordini ordine2 = new Ordini("cod_2", date, 21d);
-        Ordini ordine3 = new Ordini("cod_3", date, 23d);
-        return Arrays.asList(ordine1, ordine2, ordine3);
-    }
+
 
     @GetMapping("/order")
     public String showOrder(Model model) {
-        Ordini ordini = new Ordini();
-        model.addAttribute("ordini", ordini);
-        model.addAttribute("ordinis", ordinis());
+        Orders orders = new Orders();
+        model.addAttribute("order", orders);
+        model.addAttribute("orderList", this.orders);
         return "order";
     }
 
     //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
     @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
     public String carrello(@ModelAttribute Item item, Model model) {
-        model.addAttribute("catalogo", catalogo);
+        model.addAttribute("catalogo", catalog);
         model.addAttribute("item", new Item());
         return "cart";
     }
@@ -124,18 +120,18 @@ public class ShoppingSiteController {
         //oggetto.setName("mario");
         System.out.println(item);
         model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
-        model.addAttribute("catalogo", catalogo); //questo riempie il combo box
+        model.addAttribute("catalogo", catalog); //questo riempie il combo box
         return "cart";
     }
 
 
     public List<Item> inserisciOggetto(Item oggetto) {
-        for (Item item : catalogo) {
+        for (Item item : catalog) {
             if (item.getCode().equals(oggetto.getCode())) {
-                prodottiCarrello.add(item);
+                cartProducts.add(item);
             }
         }
-        return prodottiCarrello;
+        return cartProducts;
     }
 
     private List<Item> getItems() {
@@ -146,12 +142,25 @@ public class ShoppingSiteController {
         return Arrays.asList(item1, item2, item3);
     }
 
-    @GetMapping("salvaOrdine")
+    @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
         //Order order = new Order();
+        Double sommatotale = 0d;
+        Date date = new Date(System.currentTimeMillis());
+        Orders orders = new Orders();
+        for (Item item: cartProducts) {
+            sommatotale += item.getPrice();
+        }
+        orders.setOrderDate(date);
+        orders.setCode(orderCode);
+        idOrderCode++;
+        orders.setTotalPrice(sommatotale);
+        this.orders.add(orders);
+        cartProducts = new ArrayList<>();
+        model.addAttribute("user",userLogged);
+        return "/home";
         //questo metodo deve semplicemente aggiungere il carrello all'ENNESIMO ORDINE (DA CREARE NUOVO) SULLA LISTA ORDINI
         // ricordate che la lista ordini come il catalogo e il carrello saranno GLOBALI a livello di controller
         //ordinis.add(order);
-        return "home";
     }
 }

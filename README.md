@@ -12,7 +12,7 @@ con seguenti funzionalità.
 - Homepage con riepilogo dell’utente che ha eseguito l’accesso (benvenuto, UTENTEX) e le seguenti funzionalità:  
 -- pagina carrello.  
 -- pagina profilo utente.   
--- pagina riepilogo ordini.   
+-- pagina riepilogo orders.   
 
 team 1: Mirko Lorenzo.
 - login e carrello.  
@@ -21,5 +21,5 @@ team 2: Andrea e Gianpiero.
 - homepage e profilo.  
   
 team 3: Mohamed, Marco e Luca.    
-- registrazione e pagina ordini
+- registrazione e pagina orders
 
