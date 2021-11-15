@@ -35,7 +35,7 @@ public class User {
     private String photo;
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser")
     private List<Orders> listaOrdini;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")

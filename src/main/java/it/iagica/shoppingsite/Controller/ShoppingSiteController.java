@@ -91,15 +91,14 @@ public class ShoppingSiteController {
 
     // Metodo per analizzare la lista e cerca user se corrisponde con user all' interno della lista
     public User getUtente(List<User> usersList, User user) {
-        for (User utente : usersList) {
+        UserManager userManager = new UserManager();
+        for (User utente : userManager.getAllUsers()) {
             if (utente.getUsername().equals(user.getUsername()) && utente.getPassword().equals(user.getPassword())) {
                 return utente;
             }
         }
         return null;
     }
-
-
     @GetMapping("/order")
     public String showOrder(Model model) {
         Orders orders = new Orders();

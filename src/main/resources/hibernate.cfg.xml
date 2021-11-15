@@ -3,7 +3,7 @@
     <session-factory>
         <!-- Database connection settings -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
-        <property name="connection.url">jdbc:mysql://localhost/iagica?serverTimezone=UTC</property>
+        <property name="connection.url">jdbc:mysql://localhost/shoppingsite?serverTimezone=UTC</property>
         <property name="connection.username">iagica</property>
         <property name="connection.password">iagica</property>
         <!-- JDBC connection pool (use the built-in) -->
@@ -16,6 +16,8 @@
         <property name="show_sql">true</property>
         <!-- Drop and re-create the database schema on startup
         <property name="hbm2ddl.auto">create</property>-->
-        <mapping class="it.webapp.User" />
+        <mapping class="it.iagica.shoppingsite.Model.User" />
+        <mapping class="it.iagica.shoppingsite.Model.Orders" />
+        <mapping class="it.iagica.shoppingsite.Model.Item" />
        </session-factory>
 </hibernate-configuration>

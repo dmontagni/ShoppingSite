@@ -43,9 +43,10 @@ public class Orders {
     )
 
 
+    private List<Item>listaProdotti;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)
-    private Integer idUser;
+    private User idUser;
 
 
 
@@ -55,7 +56,7 @@ public class Orders {
     }
 
 
-    public Orders(Integer idOrders, Date orderDate, Double totalPrice, Date shippingDate, Integer idUser) {
+    public Orders(Integer idOrders, Date orderDate, Double totalPrice, Date shippingDate, User idUser) {
         this.idOrders = idOrders;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
@@ -95,11 +96,11 @@ public class Orders {
         this.shippingDate = shippingDate;
     }
 
-    public Integer getIdUser() {
+    public User getIdUser() {
         return idUser;
     }
 
-    public void setIdUser(Integer idUser) {
+    public void setIdUser(User idUser) {
         this.idUser = idUser;
     }
 
