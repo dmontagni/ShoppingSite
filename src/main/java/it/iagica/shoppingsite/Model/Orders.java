@@ -3,21 +3,64 @@ package it.iagica.shoppingsite.Model;
 import java.sql.Date;
 import java.util.List;
 
+import static javax.persistence.GenerationType.IDENTITY;
+
+
+
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "ordini" /*,catalog = "iagica"*/)
 public class Orders {
+
+    @Id
+    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "ID_ORD", unique = true, nullable = false)
     private Integer idOrders;
-    private String code;
+    @Column(name = "DATA_ORD")
     private Date orderDate;
-    private List<Item> items;
-    private Date shippingDate;
+    @Column(name = "IMPORTO_TOT_ORD")
     private Double totalPrice;
+    @Column(name = "DATA_SPED")
+    private Date shippingDate;
+
+
+    @ManyToMany
+    @JoinTable(
+            name = "ordini_prodotti",
+            joinColumns = @JoinColumn(name = "ID_ORD"),
+            inverseJoinColumns = @JoinColumn(name = "ID_PROD")
+    )
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ID_USER", nullable = false)
+    private Integer idUser;
+
+
+
 
     public Orders() {
+        super();
     }
 
-    public Orders(String code, Date orderDate, Double totalPrice) {
-        this.code = code;
+
+    public Orders(Integer idOrders, Date orderDate, Double totalPrice, Date shippingDate, Integer idUser) {
+        this.idOrders = idOrders;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
+        this.shippingDate = shippingDate;
+        this.idUser = idUser;
     }
 
     public Integer getIdOrders() {
@@ -28,36 +71,12 @@ public class Orders {
         this.idOrders = idOrders;
     }
 
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
     public Date getOrderDate() {
         return orderDate;
     }
 
     public void setOrderDate(Date orderDate) {
         this.orderDate = orderDate;
-    }
-
-    public List<Item> getItems() {
-        return items;
-    }
-
-    public void setItems(List<Item> items) {
-        this.items = items;
-    }
-
-    public Date getShippingDate() {
-        return shippingDate;
-    }
-
-    public void setShippingDate(Date shippingDate) {
-        this.shippingDate = shippingDate;
     }
 
     public Double getTotalPrice() {
@@ -68,15 +87,30 @@ public class Orders {
         this.totalPrice = totalPrice;
     }
 
+    public Date getShippingDate() {
+        return shippingDate;
+    }
+
+    public void setShippingDate(Date shippingDate) {
+        this.shippingDate = shippingDate;
+    }
+
+    public Integer getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
+    }
+
     @Override
     public String toString() {
-        return "Ordini{" +
-                "idOrdini=" + idOrders +
-                ", code='" + code + '\'' +
+        return "Orders{" +
+                "idOrders=" + idOrders +
                 ", orderDate=" + orderDate +
-                ", items=" + items +
-                ", shippingDate=" + shippingDate +
                 ", totalPrice=" + totalPrice +
+                ", shippingDate=" + shippingDate +
+                ", idUser=" + idUser +
                 '}';
     }
 }

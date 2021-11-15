@@ -18,7 +18,7 @@ import java.util.List;
 public class ShoppingSiteController {
     public static List<User> usersList = new ArrayList<User>();
     List<Item> cartProducts = new ArrayList();
-    List<Item> catalog = getItems();
+  //  List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
     static int idOrderCode = 0;
     static String orderCode = "cod" + idOrderCode + 1;
@@ -108,41 +108,41 @@ public class ShoppingSiteController {
         return "order";
     }
 
-    //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
-    @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
-    public String carrello(@ModelAttribute Item item, Model model) {
-        model.addAttribute("catalogo", catalog);
-        model.addAttribute("item", new Item());
-        return "cart";
-    }
+//    //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
+//    @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
+//    public String carrello(@ModelAttribute Item item, Model model) {
+//        model.addAttribute("catalogo", catalog);
+//        model.addAttribute("item", new Item());
+//        return "cart";
+//    }
 
 
-    @PostMapping(value = "/save")
-    public String save(@ModelAttribute("item") Item item, Model model) {
-        //oggetto.setName("mario");
-        System.out.println(item);
-        model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
-        model.addAttribute("catalogo", catalog); //questo riempie il combo box
-        return "cart";
-    }
+//    @PostMapping(value = "/save")
+//    public String save(@ModelAttribute("item") Item item, Model model) {
+//        //oggetto.setName("mario");
+//        System.out.println(item);
+//        model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
+//        model.addAttribute("catalogo", catalog); //questo riempie il combo box
+//        return "cart";
+//    }
 
 
-    public List<Item> inserisciOggetto(Item oggetto) {
-        for (Item item : catalog) {
-            if (item.getCode().equals(oggetto.getCode())) {
-                cartProducts.add(item);
-            }
-        }
-        return cartProducts;
-    }
+//    public List<Item> inserisciOggetto(Item oggetto) {
+//        for (Item item : catalog) {
+//            if (item.getCode().equals(oggetto.getCode())) {
+//                cartProducts.add(item);
+//            }
+//        }
+//        return cartProducts;
+//    }
 
-    private List<Item> getItems() {
+    //private List<Item> getItems() {
 
-        Item item1 = new Item(1, "0AB1NE", "COCOMERO", "cocomero estate", 3.5, "https://icons.iconarchive.com/icons/fi3ur/fruitsalad/64/watermelon-icon.png");
-        Item item2 = new Item(2, "0545NA", "BANANA", "banana genovese", 5.5, "https://icons.iconarchive.com/icons/iconicon/veggies/64/bananas-icon.png");
-        Item item3 = new Item(3, "BA998J", "MELONE", "melone indiano", 2.5, "https://icons.iconarchive.com/icons/google/noto-emoji-food-drink/64/32342-melon-icon.png");
-        return Arrays.asList(item1, item2, item3);
-    }
+        //Item item1 = new Item(1, "0AB1NE", "COCOMERO", "cocomero estate", 3.5, "https://icons.iconarchive.com/icons/fi3ur/fruitsalad/64/watermelon-icon.png");
+        //Item item2 = new Item(2, "0545NA", "BANANA", "banana genovese", 5.5, "https://icons.iconarchive.com/icons/iconicon/veggies/64/bananas-icon.png");
+        //Item item3 = new Item(3, "BA998J", "MELONE", "melone indiano", 2.5, "https://icons.iconarchive.com/icons/google/noto-emoji-food-drink/64/32342-melon-icon.png");
+        //return Arrays.asList(item1, item2, item3);
+    //}
 
     @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
@@ -161,7 +161,7 @@ public class ShoppingSiteController {
                 sommatotale += item.getPrice();
             }
             orders.setOrderDate(date);
-            orders.setCode(orderCode);
+            //orders.setCode(orderCode);
             orders.setTotalPrice(sommatotale);
             this.orders.add(orders);
             cartProducts = new ArrayList<>();
