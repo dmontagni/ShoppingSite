@@ -96,6 +96,14 @@ public class Orders {
         this.shippingDate = shippingDate;
     }
 
+    public List<Item> getListaProdotti() {
+        return listaProdotti;
+    }
+
+    public void setListaProdotti(List<Item> listaProdotti) {
+        this.listaProdotti = listaProdotti;
+    }
+
     public User getIdUser() {
         return idUser;
     }
@@ -111,6 +119,7 @@ public class Orders {
                 ", orderDate=" + orderDate +
                 ", totalPrice=" + totalPrice +
                 ", shippingDate=" + shippingDate +
+                ", listaProdotti=" + listaProdotti +
                 ", idUser=" + idUser +
                 '}';
     }

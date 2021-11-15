@@ -5,8 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 </head>
 <body>
-<h1>Result</h1>
-<p th:text="'Welcome, ' +  ' these are the DB users'" />
+<h1>I tuoi ultimi ordini</h1>
+
 <table border="1">
     <thead>
     <tr>
@@ -17,10 +17,10 @@
     </thead>
     <tbody>
     <tr th:if="${orderList.empty}">
-        <td colspan="2"> No Users Available </td>
+        <td colspan="2"> Nessun ordine trovato </td>
     </tr>
     <tr th:each="order : ${orderList}">
-        <td><span th:text="${order.code}"></span></td>
+        <td><span th:text="${order.idOrders}"></span></td>
         <td><span th:text="${order.orderDate}"></span></td>
         <td><span th:text="${order.totalPrice}"></span></td>
     </tr>

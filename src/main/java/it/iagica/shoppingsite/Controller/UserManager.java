@@ -1,13 +1,16 @@
 package it.iagica.shoppingsite.Controller;
 
+import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Order;
 import org.hibernate.query.Query;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -37,6 +40,20 @@ public class UserManager {
     public List<User> getAllUsers(){
         List<User> users = session.createQuery("from User", User.class).getResultList();
         return users;
+    }
+    public List<Orders> getAllOrdini(){
+        List<Orders> orderList = session.createQuery("from Orders", Orders.class).getResultList();
+        return orderList;
+    }
+
+    public List<Orders> getIdUtenteOrders(User user){
+        List<Orders> orderResult = new ArrayList<>();
+        for (Orders order: getAllOrdini()) {
+            if(order.getIdUser().getId().equals(user.getId())){
+                orderResult.add(order);
+            }
+
+        } return orderResult;
     }
 
     /**

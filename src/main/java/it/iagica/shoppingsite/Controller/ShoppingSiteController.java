@@ -16,7 +16,7 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class ShoppingSiteController {
-    public static List<User> usersList = new ArrayList<User>();
+
     List<Item> cartProducts = new ArrayList();
   //  List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
@@ -39,9 +39,11 @@ public class ShoppingSiteController {
 
     @PostMapping("/register")
     public String salvaUser(@ModelAttribute User user, Model model) {
-        usersList.add(user);
-        System.out.println(user);
+        UserManager userManager = new UserManager();
+        userManager.saveUser(user);
+
         if (user != null) {
+
             model.addAttribute("user", user);
             return "login";
         } else {
@@ -53,11 +55,16 @@ public class ShoppingSiteController {
 
     //provvisiorio
     @PostMapping("/login")
-    public String loginUser(@ModelAttribute User user, Model model, Orders orders) {
+    public String loginUser(@ModelAttribute User user, Model model) {
         model.addAttribute("user", user);
-        model.addAttribute("order", orders);
-        model.addAttribute("orderList", this.orders);
-        if (getUtente(usersList, user) != null) {
+        UserManager userManager = new UserManager();
+//        User utenteDef = ;
+
+        if (getUtente(userManager.getAllUsers(), user) != null) {
+            User utenteDef = (getUtente(userManager.getAllUsers(), user));
+            user.setId(utenteDef.getId());
+            user.setAddress(utenteDef.getAddress());
+            user.setPhoto(utenteDef.getPhoto());
             model.addAttribute("user", user);
             userLogged = user;
             return "home";
@@ -77,6 +84,8 @@ public class ShoppingSiteController {
     @PostMapping("/profiloPage")
     public String profiloAggiornato(@ModelAttribute User user, Model model) {
         System.out.println(user);
+        //gianpie questo ci serve per info chiama me o luca
+        user.setId(userLogged.getId());
         userLogged = user;
         model.addAttribute("user", user);
         return "home";
@@ -94,6 +103,7 @@ public class ShoppingSiteController {
         UserManager userManager = new UserManager();
         for (User utente : userManager.getAllUsers()) {
             if (utente.getUsername().equals(user.getUsername()) && utente.getPassword().equals(user.getPassword())) {
+                System.out.println(utente.getId()+"-----------------------------");
                 return utente;
             }
         }
@@ -102,18 +112,22 @@ public class ShoppingSiteController {
     @GetMapping("/order")
     public String showOrder(Model model) {
         Orders orders = new Orders();
+        UserManager userManager = new UserManager();
+        System.out.println(userLogged);
         model.addAttribute("order", orders);
-        model.addAttribute("orderList", this.orders);
+        //creo la lista degli ordini con id corrente
+
+        model.addAttribute("orderList",userManager.getIdUtenteOrders(userLogged));
         return "order";
     }
 
-//    //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
-//    @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
-//    public String carrello(@ModelAttribute Item item, Model model) {
+    //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
+    @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
+    public String carrello(@ModelAttribute Item item, Model model) {
 //        model.addAttribute("catalogo", catalog);
 //        model.addAttribute("item", new Item());
-//        return "cart";
-//    }
+        return "cart";
+    }
 
 
 //    @PostMapping(value = "/save")
@@ -162,7 +176,6 @@ public class ShoppingSiteController {
             orders.setOrderDate(date);
             //orders.setCode(orderCode);
             orders.setTotalPrice(sommatotale);
-            this.orders.add(orders);
             cartProducts = new ArrayList<>();
             model.addAttribute("user", userLogged);
             return "home";

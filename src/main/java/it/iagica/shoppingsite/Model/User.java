@@ -32,7 +32,7 @@ public class User {
     private String address;
 
     @Column(name = "IMG_USER")
-    private String photo;
+    private String photo = "https://robohash.org/11.png?size=100x100";
 
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser")

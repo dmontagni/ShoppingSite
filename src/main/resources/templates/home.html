@@ -6,14 +6,16 @@
 </head>
 <body>
 <p th:text="'BENVENUTO ' + ${user.username} " />
+<!--<p th:text="'BENVENUTO ' + ${user.id} " />-->
 <form action="#" th:action="@{/profiloPage}" th:object="${user}" method="get">
    
     <p><input type="submit" value="Profilo"/></p>
 </form>
-<form action="#" th:action="@{/cart}" th:object="${item}" method="get">
+
 <p><input type="submit" value="Carrello"></p>
-    <p><a href="order"> <input type="button" value="orders"/></a></p>
-</form>
+
+<p><a href="order"> <input type="button" value="orders"/></a></p>
+
 <form action="#" th:action="@{/}" method="get">
     <p><input type="submit" value="Exit" /></p>
 </form>
