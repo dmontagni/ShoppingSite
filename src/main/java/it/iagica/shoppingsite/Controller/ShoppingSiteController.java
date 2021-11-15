@@ -16,7 +16,8 @@ import java.util.List;
 
 @org.springframework.stereotype.Controller
 public class ShoppingSiteController {
-
+	UserManager userManager = new UserManager();
+	
     List<Item> cartProducts = new ArrayList();
   //  List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
@@ -124,30 +125,30 @@ public class ShoppingSiteController {
     //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
     @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
     public String carrello(@ModelAttribute Item item, Model model) {
-//        model.addAttribute("catalogo", catalog);
-//        model.addAttribute("item", new Item());
+    	
+        model.addAttribute("catalogo", userManager.getAllItems());
+        model.addAttribute("item", new Item());
         return "cart";
     }
 
 
-//    @PostMapping(value = "/save")
-//    public String save(@ModelAttribute("item") Item item, Model model) {
-//        //oggetto.setName("mario");
-//        System.out.println(item);
-//        model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
-//        model.addAttribute("catalogo", catalog); //questo riempie il combo box
-//        return "cart";
-//    }
+    @PostMapping(value = "/save")
+    public String save(@ModelAttribute("item") Item item, Model model) {
+        System.out.println(item);
+        model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
+        model.addAttribute("catalogo", userManager.getAllItems()); //questo riempie il combo box
+        return "cart";
+    }
 
 
-//    public List<Item> inserisciOggetto(Item oggetto) {
-//        for (Item item : catalog) {
-//            if (item.getCode().equals(oggetto.getCode())) {
-//                cartProducts.add(item);
-//            }
-//        }
-//        return cartProducts;
-//    }
+    public List<Item> inserisciOggetto(Item oggetto) {
+        for (Item item : userManager.getAllItems()) {
+            if (item.getCode().equals(oggetto.getCode())) {
+                cartProducts.add(item);
+            }
+        }
+        return cartProducts;
+    }
 
     //private List<Item> getItems() {
 

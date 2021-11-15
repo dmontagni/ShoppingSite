@@ -11,8 +11,8 @@
    
     <p><input type="submit" value="Profilo"/></p>
 </form>
-
-<p><input type="submit" value="Carrello"></p>
+<form action="#" th:action="@{/cart}" th:object="${item}" method="get">
+<p><input type="submit" value="Carrello"></p></form>
 
 <p><a href="order"> <input type="button" value="orders"/></a></p>
 

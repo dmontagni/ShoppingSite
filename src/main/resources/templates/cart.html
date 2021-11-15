@@ -30,7 +30,6 @@
     <tbody>
       <tr th:each="item : ${prodottiCarrello}">
         <td><img th:src='${item.img}' size/></td>                           <!-- th:src='${item.nome}' size/> -->
-        <td><span th:text="${item.idItem}"></span></td>
         <td><span th:text="${item.code}"></span></td>
         <td><span th:text="${item.name}"></span></td>
         <td><span th:text="${item.description}"></span></td>

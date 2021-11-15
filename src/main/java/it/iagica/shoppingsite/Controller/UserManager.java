@@ -1,5 +1,7 @@
 package it.iagica.shoppingsite.Controller;
 
+
+import it.iagica.shoppingsite.Model.Item;
 import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
 import org.hibernate.Session;
@@ -128,6 +130,15 @@ public class UserManager {
 //	  sessionFactory.close();
 //      return true;
 // }
+    
+    
+    public List<Item> getAllItems(){
+        session.getTransaction().begin();
+        List<Item> items = session.createQuery("from Item", Item.class).getResultList();
+        session.getTransaction().commit();
+        return items;
+    }
+    
     
 
     public boolean validate(String username) {
