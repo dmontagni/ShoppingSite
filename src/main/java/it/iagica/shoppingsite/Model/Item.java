@@ -133,17 +133,11 @@ public class Item {
         this.ordini = ordini;
     }
 
-    @Override
-    public String toString() {
-        return "Item{" +
-                "code=" + code +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", quantity=" + quantity +
-                ", img='" + img + '\'' +
-                ", description='" + description + '\'' +
-                ", user=" + user +
-                ", ordini=" + ordini +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "Item [code=" + code + ", name=" + name + ", price=" + price + ", quantity=" + quantity + ", img=" + img
+				+ ", description=" + description + ", user=" + user + ", ordini=" + ordini + "]";
+	}
+
+
 }

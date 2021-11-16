@@ -1,5 +1,6 @@
 package it.iagica.shoppingsite.Controller;
 
+
 import it.iagica.shoppingsite.Model.Item;
 import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -17,7 +19,7 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class ShoppingSiteController {
 	UserManager userManager = new UserManager();
-	
+//	Double importoTotale;
     List<Item> cartProducts = new ArrayList();
   //  List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
@@ -25,6 +27,7 @@ public class ShoppingSiteController {
     static String orderCode = "cod" + idOrderCode + 1;
     User userLogged;
 
+    
     @GetMapping("/")
     public static String showHome(Model model) {
         model.addAttribute("user", new User());
@@ -134,7 +137,7 @@ public class ShoppingSiteController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("item") Item item, Model model) {
-        System.out.println(item);
+      
         model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
         model.addAttribute("catalogo", userManager.getAllItems()); //questo riempie il combo box
         return "cart";
@@ -145,8 +148,10 @@ public class ShoppingSiteController {
         for (Item item : userManager.getAllItems()) {
             if (item.getCode().equals(oggetto.getCode())) {
                 cartProducts.add(item);
+                
             }
         }
+       
         return cartProducts;
     }
 
@@ -158,33 +163,38 @@ public class ShoppingSiteController {
         //return Arrays.asList(item1, item2, item3);
     //}
 
+
+    
     @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
         model.addAttribute("user", userLogged);
-        //Order order = new Order();
-        idOrderCode++;
-        orderCode = "cod" + idOrderCode;
-        Double sommatotale = 0d;
-        Date date = new Date(System.currentTimeMillis());
-        System.out.println(cartProducts);
         if (cartProducts.isEmpty()) {
-            return "saveError";
-        } else {
-            Orders orders = new Orders();
-            for (Item item : cartProducts) {
-                sommatotale += item.getPrice();
-            }
-            orders.setOrderDate(date);
-            //orders.setCode(orderCode);
-            orders.setTotalPrice(sommatotale);
-            cartProducts = new ArrayList<>();
-            model.addAttribute("user", userLogged);
-            return "home";
+        	return "saveError";
+        }else {
+        	model.addAttribute("user", userLogged);
+        	Orders ord = new Orders();
+    		Item prod = new Item();
+    		Double sommatotale = 0d;
+    		ord.setListaProdotti(userManager.getAllItems());
+    		ord.setUser(userManager.getUser(userLogged.getUsername()));
+    		 for (Item item : cartProducts) {
+    			 sommatotale += item.getPrice();
+             }
+    		 
+    		ord.setTotalPrice(17.0);
+    		Date date = new Date(System.currentTimeMillis());
+    		ord.setOrderDate(date);
+    		userManager.saveOrder(ord);
+    		cartProducts = new ArrayList<>();
+          model.addAttribute("user", userLogged);
+			return "home";
+		}
+
         }
 
 
         //questo metodo deve semplicemente aggiungere il carrello all'ENNESIMO ORDINE (DA CREARE NUOVO) SULLA LISTA ORDINI
         // ricordate che la lista ordini come il catalogo e il carrello saranno GLOBALI a livello di controller
         //ordinis.add(order);
-    }
+    
 }

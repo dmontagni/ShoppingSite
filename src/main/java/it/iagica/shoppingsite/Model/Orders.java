@@ -31,8 +31,8 @@ public class Orders {
     private Date orderDate;
     @Column(name = "IMPORTO_TOT_ORD")
     private Double totalPrice;
-    @Column(name = "DATA_SPED")
-    private Date shippingDate;
+//    @Column(name = "DATA_SPED")
+//    private Date shippingDate;
 
 
     @ManyToMany
@@ -46,7 +46,7 @@ public class Orders {
     private List<Item>listaProdotti;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ID_USER", nullable = false)
-    private User idUser;
+    private User user;
 
 
 
@@ -56,12 +56,12 @@ public class Orders {
     }
 
 
-    public Orders(Integer idOrders, Date orderDate, Double totalPrice, Date shippingDate, User idUser) {
+    public Orders(Integer idOrders, Date orderDate, Double totalPrice, /*Date shippingDate,*/ User idUser) {
         this.idOrders = idOrders;
         this.orderDate = orderDate;
         this.totalPrice = totalPrice;
-        this.shippingDate = shippingDate;
-        this.idUser = idUser;
+//        this.shippingDate = shippingDate;
+        this.user = idUser;
     }
 
     public Integer getIdOrders() {
@@ -88,13 +88,13 @@ public class Orders {
         this.totalPrice = totalPrice;
     }
 
-    public Date getShippingDate() {
-        return shippingDate;
-    }
-
-    public void setShippingDate(Date shippingDate) {
-        this.shippingDate = shippingDate;
-    }
+//    public Date getShippingDate() {
+//        return shippingDate;
+//    }
+//
+//    public void setShippingDate(Date shippingDate) {
+//        this.shippingDate = shippingDate;
+//    }
 
     public List<Item> getListaProdotti() {
         return listaProdotti;
@@ -104,23 +104,20 @@ public class Orders {
         this.listaProdotti = listaProdotti;
     }
 
-    public User getIdUser() {
-        return idUser;
+    public User getUser() {
+        return user;
     }
 
-    public void setIdUser(User idUser) {
-        this.idUser = idUser;
+    public void setUser(User idUser) {
+        this.user = idUser;
     }
 
-    @Override
-    public String toString() {
-        return "Orders{" +
-                "idOrders=" + idOrders +
-                ", orderDate=" + orderDate +
-                ", totalPrice=" + totalPrice +
-                ", shippingDate=" + shippingDate +
-                ", listaProdotti=" + listaProdotti +
-                ", idUser=" + idUser +
-                '}';
-    }
+
+	@Override
+	public String toString() {
+		return "Orders [idOrders=" + idOrders + ", orderDate=" + orderDate + ", totalPrice=" + totalPrice
+				+ ", shippingDate=" + /*shippingDate*/  ", listaProdotti=" + listaProdotti + ", user=" + user + "]";
+	}
+
+   
 }

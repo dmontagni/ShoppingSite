@@ -1,6 +1,7 @@
 package it.iagica.shoppingsite.Controller;
 
 
+
 import it.iagica.shoppingsite.Model.Item;
 import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
@@ -51,7 +52,7 @@ public class UserManager {
     public List<Orders> getIdUtenteOrders(User user){
         List<Orders> orderResult = new ArrayList<>();
         for (Orders order: getAllOrdini()) {
-            if(order.getIdUser().getId().equals(user.getId())){
+            if(order.getUser().getId().equals(user.getId())){
                 orderResult.add(order);
             }
 
@@ -139,7 +140,16 @@ public class UserManager {
         return items;
     }
     
-    
+    public boolean saveOrder(Orders ordine){			 
+        session.getTransaction().begin();
+        Serializable obj = session.save(ordine);
+        session.getTransaction().commit();
+        if(obj != null){
+            return true;
+        } else{
+            return false;
+        }
+    }
 
     public boolean validate(String username) {
 

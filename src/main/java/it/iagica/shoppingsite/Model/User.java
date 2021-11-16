@@ -35,7 +35,7 @@ public class User {
     private String photo = "https://robohash.org/11.png?size=100x100";
 
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
     private List<Orders> listaOrdini;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user")
@@ -125,16 +125,13 @@ public class User {
     }
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", address='" + address + '\'' +
-                ", photo='" + photo + '\'' +
-                ", listaOrdini=" + listaOrdini +
-                ", prodotti=" + prodotti +
-                '}';
-    }
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password=" + password + ", address=" + address
+				+ ", photo=" + photo + ", listaOrdini=" + listaOrdini + ", prodotti=" + prodotti + "]";
+	}
+
+
+    
+    
 }
