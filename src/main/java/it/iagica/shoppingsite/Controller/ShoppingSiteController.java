@@ -19,7 +19,7 @@ import java.util.List;
 @org.springframework.stereotype.Controller
 public class ShoppingSiteController {
 	UserManager userManager = new UserManager();
-//	Double importoTotale;
+	Double importoTotale;
     List<Item> cartProducts = new ArrayList();
   //  List<Item> catalog = getItems();
     List<Orders> orders = new ArrayList<>();
@@ -137,12 +137,30 @@ public class ShoppingSiteController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("item") Item item, Model model) {
-      
+    	Double sommatotale = 0.0;
         model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
-        model.addAttribute("catalogo", userManager.getAllItems()); //questo riempie il combo box
+        model.addAttribute("catalogo", userManager.getAllItems()); //questo riempie il combo box 
+        for (Item item2 : cartProducts) {                            //questo aggiorna il prezzo totale del cart
+        	sommatotale+= item2.getPrice();
+	}
+        model.addAttribute("prezzoTotale",sommatotale);					//questo aggiorna il prezzo totale del cart
+       
         return "cart";
     }
 
+    //questo controllo svuota il carrello
+    @GetMapping("/clear") //QUESTO RIEMPE LA COMBO BOX
+    public String clearCart(@ModelAttribute Item item, Model model) {
+    	 model.addAttribute("clear", svuotaCarrello());	
+        model.addAttribute("catalogo", userManager.getAllItems());
+        model.addAttribute("item", new Item());
+        return "cart";
+    }
+    
+    public List<Item> svuotaCarrello() {
+    	cartProducts.clear();
+		return cartProducts;
+    }
 
     public List<Item> inserisciOggetto(Item oggetto) {
         for (Item item : userManager.getAllItems()) {
@@ -181,7 +199,7 @@ public class ShoppingSiteController {
     			 sommatotale += item.getPrice();
              }
     		 
-    		ord.setTotalPrice(17.0);
+    		ord.setTotalPrice(sommatotale);
     		Date date = new Date(System.currentTimeMillis());
     		ord.setOrderDate(date);
     		userManager.saveOrder(ord);
