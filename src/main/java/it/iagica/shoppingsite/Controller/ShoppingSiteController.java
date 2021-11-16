@@ -128,7 +128,7 @@ public class ShoppingSiteController {
     //questo controllo switcha da profilo a carrello aggiornando la lista di oggetti nella combo
     @GetMapping("/cart") //QUESTO RIEMPE LA COMBO BOX
     public String carrello(@ModelAttribute Item item, Model model) {
-    	
+    	 model.addAttribute("user", userLogged);
         model.addAttribute("catalogo", userManager.getAllItems());
         model.addAttribute("item", new Item());
         return "cart";
@@ -137,6 +137,7 @@ public class ShoppingSiteController {
 
     @PostMapping(value = "/save")
     public String save(@ModelAttribute("item") Item item, Model model) {
+    	 model.addAttribute("user", userLogged);
     	Double sommatotale = 0.0;
         model.addAttribute("prodottiCarrello", inserisciOggetto(item)); //inserisce nella lista
         model.addAttribute("catalogo", userManager.getAllItems()); //questo riempie il combo box 
@@ -151,6 +152,7 @@ public class ShoppingSiteController {
     //questo controllo svuota il carrello
     @GetMapping("/clear") //QUESTO RIEMPE LA COMBO BOX
     public String clearCart(@ModelAttribute Item item, Model model) {
+    	 model.addAttribute("user", userLogged);
     	 model.addAttribute("clear", svuotaCarrello());	
         model.addAttribute("catalogo", userManager.getAllItems());
         model.addAttribute("item", new Item());
