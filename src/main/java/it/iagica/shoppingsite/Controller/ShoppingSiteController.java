@@ -4,6 +4,8 @@ package it.iagica.shoppingsite.Controller;
 import it.iagica.shoppingsite.Model.Item;
 import it.iagica.shoppingsite.Model.Orders;
 import it.iagica.shoppingsite.Model.User;
+
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -16,7 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 
 
-@org.springframework.stereotype.Controller
+@Controller
 public class ShoppingSiteController {
 	UserManager userManager = new UserManager();
 	Double importoTotale;
@@ -92,6 +94,7 @@ public class ShoppingSiteController {
         user.setId(userLogged.getId());
         userLogged = user;
         model.addAttribute("user", user);
+        model.addAttribute("user", userLogged);
         return "home";
     }
 
