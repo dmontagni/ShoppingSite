@@ -3,30 +3,16 @@
 <head>
     <title>Getting Started: Handling Form Submission</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <script>
-  function showAlert() {
-	  var element = document.getElementByType("azione").elements;
-    var success = "Hai effettuato l'accesso!";
-    var error = "Hai effettuato l'accesso!";
-    
-    window.onclick = function(event) {
-    	  if (event.target == element) {
-    	    alert (succes);
-    	  }else{
-    		   alert (error);
-    	   }
-    	}
-      }
-  </script>
+   
 </head>
 <body>
 <h1>Inserisci i tuoi dati di login <b></b></h1>
 
 <form id = "azione" action="#" th:action="@{/login}" th:object="${user}" method="post">
-    <p><img th:src='*{photo}' size/></p>
+   <!--   <p><img th:src='*{photo}' size/></p>		-->
     <p>username: <input type="text" th:field="*{username}" required /></p>
     <p>password: <input type="password" th:field="*{password}" required/></p>
-    <p><input type="submit" value="Submit">  <a href="register"> <input type="button" value="Register"></a></p>
+    <p><input type="submit" value="Submit" >  <a href="register"> <input type="button" value="Register"></a></p>
 
 </form>
 

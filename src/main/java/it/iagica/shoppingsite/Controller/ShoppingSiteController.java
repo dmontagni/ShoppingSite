@@ -11,11 +11,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
+
 import java.sql.Date;
-import java.sql.SQLException;
+
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
+
+
 
 
 @Controller
@@ -178,15 +181,6 @@ public class ShoppingSiteController {
         return cartProducts;
     }
 
-    //private List<Item> getItems() {
-
-        //Item item1 = new Item(1, "0AB1NE", "COCOMERO", "cocomero estate", 3.5, "https://icons.iconarchive.com/icons/fi3ur/fruitsalad/64/watermelon-icon.png");
-        //Item item2 = new Item(2, "0545NA", "BANANA", "banana genovese", 5.5, "https://icons.iconarchive.com/icons/iconicon/veggies/64/bananas-icon.png");
-        //Item item3 = new Item(3, "BA998J", "MELONE", "melone indiano", 2.5, "https://icons.iconarchive.com/icons/google/noto-emoji-food-drink/64/32342-melon-icon.png");
-        //return Arrays.asList(item1, item2, item3);
-    //}
-
-
     
     @GetMapping("/saveOrder")
     public String salvaOrdine(Model model) {
@@ -213,8 +207,11 @@ public class ShoppingSiteController {
 			return "home";
 		}
 
+      
+        
+        
         }
-
+  
 
         //questo metodo deve semplicemente aggiungere il carrello all'ENNESIMO ORDINE (DA CREARE NUOVO) SULLA LISTA ORDINI
         // ricordate che la lista ordini come il catalogo e il carrello saranno GLOBALI a livello di controller
